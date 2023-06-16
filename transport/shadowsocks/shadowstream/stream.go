@@ -5,6 +5,8 @@ import (
 	"crypto/rand"
 	"io"
 	"net"
+
+	"github.com/Dreamacro/clash/transport/socks5"
 )
 
 const bufSize = 2048
@@ -102,6 +104,25 @@ type Conn struct {
 
 // NewConn wraps a stream-oriented net.Conn with stream cipher encryption/decryption.
 func NewConn(c net.Conn, ciph Cipher) *Conn { return &Conn{Conn: c, Cipher: ciph} }
+
+func (c *Conn) ReadHeader() ([]byte, error) {
+	if c.r == nil {
+		if err := c.initReader(); err != nil {
+			return nil, err
+		}
+	}
+	return socks5.ReadAddrBuf(c.r)
+}
+
+func (c *Conn) WriteHeader(addr []byte) error {
+	if c.w == nil {
+		if err := c.initWriter(); err != nil {
+			return err
+		}
+	}
+	_, err := c.w.Write(addr)
+	return err
+}
 
 func (c *Conn) initReader() error {
 	if c.r == nil {

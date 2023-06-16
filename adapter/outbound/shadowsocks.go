@@ -68,9 +68,12 @@ func (ss *ShadowSocks) StreamConn(c net.Conn, metadata *C.Metadata) (net.Conn, e
 			return nil, fmt.Errorf("%s connect error: %w", ss.addr, err)
 		}
 	}
-	c = ss.cipher.StreamConn(c)
-	_, err := c.Write(serializesSocksAddr(metadata))
-	return c, err
+	ssConn := ss.cipher.StreamConn(c)
+	if err := ssConn.WriteHeader(serializesSocksAddr(metadata)); err != nil {
+		return nil, err
+	}
+
+	return ssConn, nil
 }
 
 // DialContext implements C.ProxyAdapter

@@ -272,6 +272,11 @@ func ClientHandshake(rw io.ReadWriter, addr Addr, command Command, user *User) (
 	return ReadAddr(rw, buf)
 }
 
+func ReadAddrBuf(r io.Reader) (Addr, error) {
+	buf := make([]byte, MaxAddrLen)
+	return ReadAddr(r, buf)
+}
+
 func ReadAddr(r io.Reader, b []byte) (Addr, error) {
 	if len(b) < MaxAddrLen {
 		return nil, io.ErrShortBuffer
