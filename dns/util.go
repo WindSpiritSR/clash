@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/Dreamacro/clash/common/cache"
-	"github.com/Dreamacro/clash/common/picker"
-	"github.com/Dreamacro/clash/log"
+	"github.com/WindSpiritSR/clash/common/cache"
+	"github.com/WindSpiritSR/clash/common/picker"
+	"github.com/WindSpiritSR/clash/log"
 
 	D "github.com/miekg/dns"
 	"github.com/samber/lo"

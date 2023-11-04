@@ -3,7 +3,7 @@ package fakeip
 import (
 	"net"
 
-	"github.com/Dreamacro/clash/common/cache"
+	"github.com/WindSpiritSR/clash/common/cache"
 )
 
 type memoryStore struct {
