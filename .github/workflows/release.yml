@@ -1,11 +1,16 @@
 name: Release
-on: [push]
+on: 
+  workflow_dispatch:
+  push:
+    tags: ['*']
+    branches:
+      - master
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Go
-        uses: actions/setup-go@v4
+        uses: actions/setup-go@v5
         with:
           check-latest: true
           go-version: '1.21'
@@ -14,7 +19,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Cache go module
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             ~/go/pkg/mod
@@ -31,7 +36,7 @@ jobs:
         run: make -j $(go run ./test/main.go) releases
 
       - name: Upload Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: bin/*
