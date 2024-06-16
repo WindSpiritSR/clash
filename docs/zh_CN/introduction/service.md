@@ -73,7 +73,7 @@ journalctl -xe
 ```yaml [Clash]
 services:
   clash:
-    image: ghcr.io/dreamacro/clash
+    image: ghcr.io/windspiritsr/clash
     restart: always
     volumes:
       - ./config.yaml:/root/.config/clash/config.yaml:ro
@@ -88,7 +88,7 @@ services:
 ```yaml [Clash Premium]
 services:
   clash:
-    image: ghcr.io/dreamacro/clash-premium
+    image: ghcr.io/windspiritsr/clash-premium
     restart: always
     volumes:
       - ./config.yaml:/root/.config/clash/config.yaml:ro

@@ -1,22 +1,23 @@
 name: CodeQL
 
 on:
+  workflow_dispatch:
   push:
-    branches: [master, dev]
+    branches:
+      - master
 
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
-
     strategy:
       fail-fast: false
       matrix:
-        language: ['go']
-
+        language:
+          - 'go'
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v2
